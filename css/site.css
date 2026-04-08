@@ -1,0 +1,369 @@
+/* ═══════════════════════════════════════
+   신들의 전쟁 - 공개 사이트 스타일
+   참조: splendid-belekoy 사이트 UI
+   ═══════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Noto+Serif+KR:wght@300;400;600;700&family=Cormorant+Garamond:wght@300;400;600;700&display=swap');
+
+/* ── 리셋 & 기본 ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg-deep: #020410;
+  --bg-card: rgba(15, 23, 42, 0.6);
+  --accent: #6366f1;
+  --accent-soft: #a78bfa;
+  --gold: #fbbf24;
+  --text: #e0e7ff;
+  --text-dim: rgba(224, 231, 255, 0.5);
+  --border: rgba(99, 102, 241, 0.2);
+  --pink: #f472b6;
+  --magenta: #701a75;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  min-height: 100vh;
+  background: var(--bg-deep);
+  background-image:
+    linear-gradient(180deg, #020410 0%, #0a0520 30%, #120828 50%, #0a0520 70%, #020410 100%);
+  color: var(--text);
+  font-family: 'Noto Serif KR', 'Cormorant Garamond', serif;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* 스크롤바 */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #7c3aed; }
+
+/* ── 별 배경 ── */
+.stars-container {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 0;
+  overflow: hidden;
+}
+.star {
+  position: absolute;
+  width: 2px; height: 2px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 50%;
+  animation: twinkle var(--dur, 3s) ease-in-out infinite;
+}
+.star.gold { background: var(--gold); width: 3px; height: 3px; }
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* 유성 */
+.meteor {
+  position: fixed;
+  width: 2px; height: 80px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.8), transparent);
+  transform: rotate(-45deg);
+  animation: meteor 4s linear infinite;
+  opacity: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+@keyframes meteor {
+  0% { opacity: 0; top: -10%; left: 110%; }
+  5% { opacity: 1; }
+  30% { opacity: 0; top: 60%; left: 40%; }
+  100% { opacity: 0; top: 60%; left: 40%; }
+}
+
+/* ── 네비게이션 ── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(2, 4, 16, 0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
+  transition: background 0.3s;
+}
+.nav-logo {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.1rem; color: var(--gold);
+  letter-spacing: 0.15em;
+  text-shadow: 0 0 20px rgba(251,191,36,0.4);
+  text-decoration: none;
+}
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem; letter-spacing: 0.2em;
+  color: var(--text-dim); text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.3s, text-shadow 0.3s;
+  position: relative;
+}
+.nav-links a:hover, .nav-links a.active {
+  color: var(--accent-soft);
+  text-shadow: 0 0 15px rgba(167,139,250,0.5);
+}
+.nav-links a::after {
+  content: ''; position: absolute;
+  bottom: -4px; left: 0; right: 0;
+  height: 1px; background: var(--accent-soft);
+  transform: scaleX(0); transition: transform 0.3s;
+}
+.nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+
+/* ── 히어로 섹션 ── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  position: relative; z-index: 1;
+  padding: 120px 20px 80px;
+}
+.hero-subtitle {
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem; letter-spacing: 0.3em;
+  color: var(--accent-soft);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  animation: fadeInUp 1s ease-out;
+}
+.hero-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  color: var(--gold);
+  text-shadow: 0 0 40px rgba(251,191,36,0.4), 0 0 80px rgba(251,191,36,0.15);
+  letter-spacing: 0.1em;
+  margin-bottom: 24px;
+  animation: fadeInUp 1s ease-out 0.2s both;
+}
+.hero-desc {
+  max-width: 600px;
+  font-size: 1rem; color: var(--text-dim);
+  line-height: 1.8;
+  animation: fadeInUp 1s ease-out 0.4s both;
+}
+.hero-divider {
+  width: 60px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-soft), transparent);
+  margin: 32px auto;
+  animation: fadeInUp 1s ease-out 0.6s both;
+}
+.hero-scroll {
+  margin-top: 40px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem; letter-spacing: 0.2em;
+  color: var(--text-dim);
+  animation: fadeInUp 1s ease-out 0.8s both, float 3s ease-in-out infinite;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ── 공통 섹션 ── */
+.section {
+  position: relative; z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 100px 24px;
+}
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.section-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem; letter-spacing: 0.3em;
+  color: var(--accent-soft);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.section-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: var(--gold);
+  text-shadow: 0 0 30px rgba(251,191,36,0.3);
+  letter-spacing: 0.08em;
+}
+.section-divider {
+  width: 40px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-soft), transparent);
+  margin: 20px auto 0;
+}
+
+/* ── 글래스 카드 ── */
+.glass-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 40px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.glass-card:hover {
+  border-color: rgba(167,139,250,0.4);
+  box-shadow: 0 0 40px rgba(99,102,241,0.1);
+}
+
+/* ── 세계관 섹션 ── */
+.worldview-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+.worldview-card h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem; color: var(--gold);
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+}
+.worldview-card p {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  min-height: 60px;
+}
+.worldview-placeholder {
+  color: rgba(167,139,250,0.4);
+  font-style: italic;
+  font-size: 0.85rem;
+}
+
+/* ── 등장인물 섹션 ── */
+.characters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+.character-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+.character-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(167,139,250,0.5);
+  box-shadow: 0 8px 40px rgba(99,102,241,0.15);
+}
+.character-card img {
+  width: 100%; height: 200px;
+  object-fit: cover;
+  border-bottom: 1px solid var(--border);
+}
+.character-info {
+  padding: 20px;
+}
+.character-info h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem; color: var(--gold);
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+.character-info .char-sub {
+  font-size: 0.78rem; color: var(--accent-soft);
+  margin-bottom: 8px;
+}
+.character-info .char-faction {
+  font-size: 0.72rem; color: var(--text-dim);
+  letter-spacing: 0.05em;
+}
+.character-delete {
+  position: absolute; top: 10px; right: 10px;
+  width: 28px; height: 28px;
+  background: rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,100,100,0.4);
+  border-radius: 50%; color: #ff6b6b;
+  font-size: 0.85rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.2s;
+}
+.character-card:hover .character-delete { opacity: 1; }
+.character-delete:hover { background: rgba(255,100,100,0.3); }
+
+.no-characters {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+/* ── 스토리 섹션 ── */
+.story-content {
+  display: flex; flex-direction: column;
+  gap: 32px;
+}
+.story-chapter {
+  position: relative;
+  padding-left: 32px;
+}
+.story-chapter::before {
+  content: '';
+  position: absolute; left: 8px; top: 8px; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--accent-soft), transparent);
+}
+.story-chapter::after {
+  content: '';
+  position: absolute; left: 4px; top: 4px;
+  width: 9px; height: 9px;
+  background: var(--accent); border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent);
+}
+.story-chapter h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem; color: var(--gold);
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+}
+.story-chapter p {
+  color: var(--text-dim);
+  font-size: 0.92rem; line-height: 1.8;
+  min-height: 40px;
+}
+
+/* ── 푸터 ── */
+.footer {
+  position: relative; z-index: 1;
+  text-align: center;
+  padding: 60px 20px 40px;
+  border-top: 1px solid var(--border);
+}
+.footer-logo {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.2rem; color: var(--gold);
+  letter-spacing: 0.15em;
+  margin-bottom: 12px;
+  text-shadow: 0 0 20px rgba(251,191,36,0.3);
+}
+.footer-text {
+  font-size: 0.75rem; color: var(--text-dim);
+  letter-spacing: 0.1em;
+}
+
+/* ── 반응형 ── */
+@media (max-width: 768px) {
+  .nav { padding: 0 16px; }
+  .nav-links { gap: 16px; }
+  .nav-links a { font-size: 0.65rem; }
+  .section { padding: 60px 16px; }
+  .glass-card { padding: 24px; }
+  .characters-grid { grid-template-columns: 1fr; }
+}
