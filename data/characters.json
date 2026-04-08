@@ -5,5 +5,19 @@
     "faction": "야오요로즈",
     "deity": "츠쿠요미",
     "imagePath": "/images/카노 아키코_card.png"
+  },
+  {
+    "nameKo": "엘레나 파파도풀로스",
+    "nameEn": "ELENA PAPADOPOULOS",
+    "faction": "올림포스",
+    "deity": "제우스",
+    "imagePath": "/images/엘레나 파파도풀로스_card.png"
+  },
+  {
+    "nameKo": "세라피나 비스콘티",
+    "nameEn": "SERAPHINA VISCONTI",
+    "faction": "세피로트",
+    "deity": "우리엘",
+    "imagePath": "/images/세라피나 비스콘티_card.png"
   }
 ]
